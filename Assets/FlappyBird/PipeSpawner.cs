@@ -20,11 +20,11 @@ public class PipeSpawner : MonoBehaviour, IStop, IReset
     {
         pipeLastSpawnTime = Time.time;
 
-        for (int i = 0; i < pipesInScene.Length; i++)
+        foreach (var pipe in pipesInScene)
         {
-            if (pipesInScene[i])
-            Destroy(pipesInScene[i].gameObject);
-            pipesInScene[i] = null;
+            if (pipe == null)
+            continue;
+            pipe.transform.position = transform.position;
         }
     }
 
@@ -60,6 +60,7 @@ public class PipeSpawner : MonoBehaviour, IStop, IReset
             pipesInScene[pipeIndex] = Instantiate(pipePrefab, transform.position, Quaternion.identity).GetComponent<PipePair>();
 
         pipesInScene[pipeIndex].transform.position = transform.position + Vector3.up * yOffset;
+        pipesInScene[pipeIndex].Go();
 
         pipeIndex++;
 

@@ -12,6 +12,10 @@ public class PipePair : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void Go()
+    {
         rb.velocity = Vector2.left * speed;
     }
 
