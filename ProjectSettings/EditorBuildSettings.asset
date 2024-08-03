@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: c1a00cd94462d4109a0e175e3466fe72
   - enabled: 1
-    path: Assets/Scenes/FlappyScene.unity
+    path: Assets/FlappyBird/FlappyScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/BreakoutScene.unity
+    path: Assets/Breakout/BreakoutScene.unity
     guid: e49e018068cf0409aa09309351ffdb02
+  - enabled: 1
+    path: Assets/WordGame/WordGame.unity
+    guid: d748f97fd73ea4c76989cc268266557b
   m_configObjects: {}
