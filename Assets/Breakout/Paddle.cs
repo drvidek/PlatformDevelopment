@@ -7,6 +7,8 @@ public class Paddle : MonoBehaviour, IReset
     [Tooltip("How fast the paddle can move towards the touch input")]
     [SerializeField] private float speed;
 
+    private int fingerCurrentId = -1;
+
     // Update is called once per frame
     void Update()
     {
@@ -23,10 +25,11 @@ public class Paddle : MonoBehaviour, IReset
 
 #else
 
-        if (Input.touchCount == 0)
-         return;
-        
-        Touch touch = Input.GetTouch(0);
+        if (!TouchReciever.TryGetTouch(ref fingerCurrentId, out Touch touch))
+        {
+            fingerCurrentId = -1;
+            return;
+        }
 
         point = Camera.main.ScreenToWorldPoint(touch.position);
 

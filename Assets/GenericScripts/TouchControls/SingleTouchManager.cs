@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchReciever : MonoBehaviour
+public class SingleTouchManager : MonoBehaviour
 {
     private int fingerId = -1;
     private ITouchable currentTouchable;
@@ -10,7 +10,7 @@ public class TouchReciever : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TryGetTouch(ref fingerId, out Touch touch))
+        if (TouchReciever.TryGetTouch(ref fingerId, out Touch touch))
         {
             ManageTouch(touch.position);
             return;
@@ -82,32 +82,4 @@ public class TouchReciever : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Try to get or maintain a unique touch.
-    /// </summary>
-    /// <param name="touchID"></param>
-    /// <param name="touchFound"></param>
-    /// <returns></returns>
-    private bool TryGetTouch(ref int touchID, out Touch touchFound)
-    {
-        foreach (Touch touch in Input.touches)
-        {
-            if (touchID == -1 || touch.fingerId == touchID)
-            {
-                touchFound = touch;
-                touchID = touchFound.fingerId;
-                return true;
-            }
-        }
-        touchFound = new();
-        return false;
-    }
-}
-
-
-public interface ITouchable
-{
-    public void OnTouchBegin(Vector3 touchPosition);
-    public void OnTouchStay(Vector3 touchPosition);
-    public void OnTouchEnd(Vector3 touchPosition);
 }

@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Breakout/BreakoutScene.unity
     guid: e49e018068cf0409aa09309351ffdb02
   - enabled: 1
-    path: Assets/WordGame/WordGame.unity
+    path: Assets/Bejeweled/WordGame.unity
     guid: d748f97fd73ea4c76989cc268266557b
   m_configObjects: {}
