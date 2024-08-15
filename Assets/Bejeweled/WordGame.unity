@@ -468,10 +468,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 63800822406663701, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 227317494744684287, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -565,17 +561,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6961603806697000735, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2133651490}
-    - targetCorrespondingSourceObject: {fileID: 6961603806697000735, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2133651496}
+      addedObject: {fileID: 2133651497}
   m_SourcePrefab: {fileID: 100100000, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
 --- !u!224 &2133651478 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 227317494744684287, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
   m_PrefabInstance: {fileID: 2133651477}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2133651490
+--- !u!114 &2133651497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -584,22 +577,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1286113057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f740d89c3e9840349ab3df3109aa070, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e2031deb3c0a4694834630aaa8df9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2133651496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286113057}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 541236e9c2ab047a1832ef725a664989, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fingerId: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  allowMultiTouch: 1
+  fingerIDs: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
