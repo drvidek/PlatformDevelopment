@@ -55,3 +55,23 @@ public interface ITouchable
     public abstract void OnTouchStay(Vector3 touchPosition);
     public abstract void OnTouchEnd(Vector3 touchPosition);
 }
+
+public interface ITappable : ITouchable
+{
+    public static float TapAllowance = 0.3f;
+
+    public static void TrackTouchLength(ref float time)
+    {
+        time += Time.deltaTime;
+    }
+
+    public static bool ValidTap(float time)
+    {
+        return time < TapAllowance;
+    }
+}
+
+public interface IDraggable : ITouchable
+{
+    
+}

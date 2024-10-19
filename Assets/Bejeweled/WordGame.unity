@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657886, g: 0.49641275, b: 0.5748176, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -562,6 +561,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6961603806697000735, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133651497}
+    - targetCorrespondingSourceObject: {fileID: 6961603806697000735, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2133651498}
   m_SourcePrefab: {fileID: 100100000, guid: ee1b2abd9fccb4b6b8dec0c55c7a4327, type: 3}
 --- !u!224 &2133651478 stripped
 RectTransform:
@@ -575,13 +577,30 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286113057}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e2031deb3c0a4694834630aaa8df9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allowMultiTouch: 1
   fingerIDs: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+--- !u!114 &2133651498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286113057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46fca96bba835241a2f4ccf04ba8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerID: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  tapTimeThreshold: 0.3
+  tapDistanceThreshold: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

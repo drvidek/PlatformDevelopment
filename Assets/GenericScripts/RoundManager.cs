@@ -15,23 +15,20 @@ public interface IStop
 
 public class RoundManager : MonoBehaviour
 {
-    private bool roundActive = true;
-    public bool RoundActive => roundActive;
-
-    private static RoundManager singleton;
+    private static RoundManager _singleton;
 
     public static RoundManager Singleton
     {
-        get => singleton;
+        get => _singleton;
         set
         {
-            if (singleton != null)
+            if (_singleton != null)
             {
                 Debug.LogWarning($"RoundManager already has a singleton! Make sure there is only one RoundManager in your scene.");
                 Destroy(value);
                 return;
             }
-            singleton = value;
+            _singleton = value;
         }
     }
 
@@ -39,6 +36,15 @@ public class RoundManager : MonoBehaviour
     {
         Singleton = this;
     }
+
+    private void OnDestroy()
+    {
+        if (Singleton == this)
+            _singleton = null;
+    }
+
+    private bool roundActive = true;
+    public bool RoundActive => roundActive;
 
     public void Start()
     {

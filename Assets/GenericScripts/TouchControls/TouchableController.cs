@@ -2,11 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct ScreenInteraction
+{
+    public int fingerID;
+    public Vector3 startPosition;
+    public Vector3 endPosition;
+    public ITouchable touchable;
+
+    public ScreenInteraction(int fingerId)
+    {
+        this.fingerID = fingerId;
+        startPosition = Vector3.zero;
+        endPosition = Vector3.zero;
+        touchable = null;
+    }
+
+    public ScreenInteraction(int fingerId, Vector3 start)
+    {
+        this.fingerID = fingerId;
+        startPosition = start;
+        endPosition = Vector3.zero;
+        touchable = null;
+    }
+}
+
 public class TouchableController : MonoBehaviour
 {
     [SerializeField] private bool allowMultiTouch;
     [SerializeField] private int[] fingerIDs = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
     [SerializeField] private ITouchable[] currentTouchable = new ITouchable[10];
+
+    public static Camera camera;
+
+    private ScreenInteraction[] interactions = new ScreenInteraction[10];
 
     // Update is called once per frame
     void Update()
@@ -24,6 +52,7 @@ public class TouchableController : MonoBehaviour
     {
         if (TouchReciever.TryGetTouch(ref fingerIDs[0], out Touch touch))
         {
+            CheckNewInteraction(fingerIDs[0], touch);
             Debug.Log("Found touch");
             ManageTouch(touch.position);
             return;
@@ -50,6 +79,14 @@ public class TouchableController : MonoBehaviour
         }
     }
 
+    private void CheckNewInteraction(int fingerIndex, Touch touch)
+    {
+        if (interactions[fingerIndex].fingerID == -1)
+        {
+            interactions[fingerIndex] = new(fingerIDs[0], touch.position);
+        }
+    }
+
     /// <summary>
     /// Checks if something is currently touched and gives it the new touch position, else casts a new touch at the position.
     /// </summary>
@@ -57,7 +94,7 @@ public class TouchableController : MonoBehaviour
     private void ManageTouch(Vector3 touchPosition, int fingerIndex = 0)
     {
         if (!CurrentlyTouching(touchPosition, fingerIndex))
-            CastTouch(touchPosition, fingerIndex);
+            CastNewTouch(touchPosition, fingerIndex);
     }
 
     /// <summary>
@@ -88,6 +125,11 @@ public class TouchableController : MonoBehaviour
             return;
         }
 #endif
+        if (fingerIDs[fingerIndex] != -1)
+        {
+
+        }
+
         fingerIDs[fingerIndex] = -1;
         if (currentTouchable[fingerIndex] != null)
         {
@@ -100,7 +142,7 @@ public class TouchableController : MonoBehaviour
     /// Raycast from the given screen position and try to get a touchable component, beginning touch if one is found.
     /// </summary>
     /// <param name="screenPosition"></param>
-    private void CastTouch(Vector3 screenPosition, int fingerIndex = 0)
+    private bool CastNewTouch(Vector3 screenPosition, int fingerIndex = 0)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -109,8 +151,10 @@ public class TouchableController : MonoBehaviour
             {
                 currentTouchable[fingerIndex] = touched;
                 currentTouchable[fingerIndex].OnTouchBegin(screenPosition);
+                return true;
             }
         }
+        return false;
     }
 
 }

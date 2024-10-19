@@ -25,15 +25,23 @@ public class FlappyPlayer : MonoBehaviour, IReset
         scoreKeeper = GetComponent<ScoreKeeper>();
         uIManager = FindObjectOfType<UIManager>();
         homePosition = transform.position;
+        ScreenInteractionController.onNewTouch += Jump;
+    }
+
+    void OnDestroy()
+    {
+        ScreenInteractionController.onNewTouch -= Jump;
     }
 
     public void Update()
     {
+#if UNITY_EDITOR
         //Input.GetMouseButtonDown(0) will fire when the screen is touched!
-        if (Input.GetMouseButtonDown(0) && RoundManager.Singleton.RoundActive)
-        {
-            Jump();
-        }
+       // if (Input.GetMouseButtonDown(0))
+       // {
+       //     Jump();
+       // }
+#endif
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 0.5f, Vector2.up, 3f);
 
@@ -61,7 +69,8 @@ public class FlappyPlayer : MonoBehaviour, IReset
 
     public void Jump()
     {
-        rb.velocity = Vector2.up * jumpPower;
+        if (RoundManager.Singleton.RoundActive)
+            rb.velocity = Vector2.up * jumpPower;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -78,7 +87,6 @@ public class FlappyPlayer : MonoBehaviour, IReset
 
     public void Reset()
     {
-        //scoreKeeper.Reset();
         uIManager.UpdateCurrentScore(0);
         rb.simulated = true;
         transform.position = homePosition;
