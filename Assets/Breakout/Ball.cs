@@ -12,9 +12,9 @@ public class Ball : MonoBehaviour, IReset, IStop
 
     private Transform follow;
 
-    private bool moving = true;
+    private bool caught = false;
 
-    private bool input = false;
+    private bool catchable = false;
 
     private Vector3 homePosition;
 
@@ -23,32 +23,31 @@ public class Ball : MonoBehaviour, IReset, IStop
         rb = GetComponent<Rigidbody2D>();
         homePosition = transform.position;
         scoreKeeper = GetComponent<ScoreKeeper>();
-        uiManager = FindObjectOfType<UIManager>();
+        uiManager = FindAnyObjectByType<UIManager>();
         Reset();
     }
 
     public void Update()
     {
-        input = CheckInput();
-        if (!moving)
+        if (caught)
         {
             transform.position = new Vector3(follow.position.x, transform.position.y, 0);
 
-            if (!input)
+            if (!catchable)
             {
-                moving = true;
-                rb.velocity = Vector2.down * speed;
+                caught = false;
+                rb.linearVelocity = Vector2.down * speed;
             }
 
             return;
         }
 
-        if (Mathf.Abs(rb.velocity.y) < Mathf.Abs(rb.velocity.x) * 0.15f)
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * Mathf.Abs(rb.velocity.x) * 0.15f);
+        if (Mathf.Abs(rb.linearVelocity.y) < Mathf.Abs(rb.linearVelocity.x) * 0.15f)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Sign(rb.linearVelocity.y) * Mathf.Abs(rb.linearVelocity.x) * 0.15f);
 
-        if (rb.velocity.magnitude != speed)
+        if (rb.linearVelocity.magnitude != speed)
         {
-            rb.velocity = rb.velocity.normalized * speed;
+            rb.linearVelocity = rb.linearVelocity.normalized * speed;
         }
     }
 
@@ -56,10 +55,10 @@ public class Ball : MonoBehaviour, IReset, IStop
     {
         if (collision.transform.parent?.GetComponent<Paddle>())
         {
-            if (input)
+            if (catchable)
             {
-                rb.velocity = Vector2.zero;
-                moving = false;
+                rb.linearVelocity = Vector2.zero;
+                caught = true;
                 follow = collision.transform;
             }
         }
@@ -81,18 +80,14 @@ public class Ball : MonoBehaviour, IReset, IStop
         }
     }
 
-    private bool CheckInput()
+    public void SetCatchable(bool value)
     {
-#if UNITY_EDITOR
-        return Input.GetMouseButton(1);
-#else
-           return (Input.touchCount > 1);
-#endif
+        catchable = value;
     }
 
     public void Stop()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
     }
 
@@ -101,6 +96,6 @@ public class Ball : MonoBehaviour, IReset, IStop
         rb.simulated = true;
 
         transform.position = homePosition;
-        rb.velocity = Random.insideUnitCircle.normalized * speed;
+        rb.linearVelocity = Random.insideUnitCircle.normalized * speed;
     }
 }

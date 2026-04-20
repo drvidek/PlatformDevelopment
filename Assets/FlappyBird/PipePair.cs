@@ -16,11 +16,11 @@ public class PipePair : MonoBehaviour
 
     public void Go()
     {
-        rb.velocity = Vector2.left * speed;
+        rb.linearVelocity = Vector2.left * speed;
     }
 
     public void Stop()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 }

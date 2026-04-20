@@ -10,6 +10,7 @@ public class Paddle : MonoBehaviour, IReset
     private int fingerCurrentId = -1;
 
     // Update is called once per frame
+    /*
     void Update()
     {
         if (!RoundManager.Singleton.RoundActive)
@@ -38,8 +39,15 @@ public class Paddle : MonoBehaviour, IReset
         MoveTowards(point);
 
     }
+    */
 
-    private void MoveTowards(Vector2 position)
+    public void MoveTowardsScreenPosition(Vector2 position)
+    {
+        position = Camera.main.ScreenToWorldPoint(position);
+        MoveTowards(position);
+    }
+
+    public void MoveTowards(Vector2 position)
     {
         Vector3 target = new Vector3(position.x, transform.position.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);

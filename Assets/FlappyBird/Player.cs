@@ -23,14 +23,14 @@ public class FlappyPlayer : MonoBehaviour, IReset
     {
         rb = GetComponent<Rigidbody2D>();
         scoreKeeper = GetComponent<ScoreKeeper>();
-        uIManager = FindObjectOfType<UIManager>();
+        uIManager = FindAnyObjectByType<UIManager>();
         homePosition = transform.position;
-        ScreenInteractionController.onNewTouch += Jump;
+        //ScreenInteractionController.onNewTouch += Jump;
     }
 
     void OnDestroy()
     {
-        ScreenInteractionController.onNewTouch -= Jump;
+        //ScreenInteractionController.onNewTouch -= Jump;
     }
 
     public void Update()
@@ -70,16 +70,16 @@ public class FlappyPlayer : MonoBehaviour, IReset
     public void Jump()
     {
         if (RoundManager.Singleton.RoundActive)
-            rb.velocity = Vector2.up * jumpPower;
+            rb.linearVelocity = Vector2.up * jumpPower;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (roundManager == null)
         {
-            roundManager = FindObjectOfType<RoundManager>();
+            roundManager = FindAnyObjectByType<RoundManager>();
         }
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
         uIManager.UpdateCurrentHighscore(scoreKeeper.TryToSaveHighScore("FlappyBird") ? scoreKeeper.Score : scoreKeeper.GetHighscore("FlappyBird"));
         roundManager.EndGame();
