@@ -471,28 +471,13 @@ MonoBehaviour:
   onTouchEnd:
     m_PersistentCalls:
       m_Calls: []
-  onMultiTouchBegin:
+  onFingerCountChange:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1568417092}
-        m_TargetAssemblyTypeName: Ball, Assembly-CSharp
-        m_MethodName: SetCatchable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onMultiTouchEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1568417092}
-        m_TargetAssemblyTypeName: Ball, Assembly-CSharp
-        m_MethodName: SetCatchable
-        m_Mode: 6
+      - m_Target: {fileID: 1568417094}
+        m_TargetAssemblyTypeName: CatchInput, Assembly-CSharp
+        m_MethodName: CheckFingers
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -501,9 +486,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onCurrentFingerCount:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 1335153668}
         m_TargetAssemblyTypeName: LabelFromInt, Assembly-CSharp
         m_MethodName: Set
@@ -1710,7 +1692,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827390620}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279924ec14fb44c04966ae463a73f2ee, type: 3}
   m_Name: 
@@ -2196,7 +2178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 60
+  m_Text: 0
 --- !u!222 &1335153670
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2547,6 +2529,7 @@ GameObject:
   - component: {fileID: 1568417088}
   - component: {fileID: 1568417092}
   - component: {fileID: 1568417093}
+  - component: {fileID: 1568417094}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -2716,6 +2699,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf36385b1b66a4d4ba0a3cfa650ece87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1568417094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568417087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58192da24882340b78e04bc2ee63bcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CatchInput
+  catchFingerCount: 2
 --- !u!1 &1599286391
 GameObject:
   m_ObjectHideFlags: 0

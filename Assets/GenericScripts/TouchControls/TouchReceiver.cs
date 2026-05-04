@@ -15,7 +15,6 @@ public static class TouchReciever
         {
             bool cont = false;
 
-
             //check if the current touch is registered to another finger index already
             foreach (int id in excludeIDs)
             {
