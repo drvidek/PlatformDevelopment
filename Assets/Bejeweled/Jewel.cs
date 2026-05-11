@@ -16,20 +16,27 @@ namespace Bejeweled
             Capsule
         }
 
-        [SerializeField] private Shape shape;
+        [SerializeField] public Shape shape;
         [SerializeField] private Sprite[] sprites;
         [SerializeField] private Color[] colors = new Color[6];
-        private Grid grid;
-        private Vector3 lastPosition;
+
+        public static bool Match(Jewel jewelA, Jewel jewelB)
+        {
+            // If either shape is null, there's no match
+            if (!jewelA || !jewelB)
+                return false;
+
+            return jewelA.shape == jewelB.shape;
+        }
 
         private void OnValidate()
         {
-            base.Start();
             ApplyShape(shape);
         }
 
         private void ApplyShape(Shape shape)
         {
+            Secure();
             spriteRenderer.transform.localScale = Vector3.one * 0.75f;
             spriteRenderer.sprite = sprites[(int)shape];
             colorBase = colors[(int)shape];
@@ -54,38 +61,11 @@ namespace Bejeweled
                     break;
             }
         }
-
-        public override void OnTouchEnd(Vector3 screenPosition)
+        public override void Initialise(Grid grid)
         {
-            base.OnTouchEnd(screenPosition);
-            if (Physics.Raycast(transform.position + Vector3.back, Vector3.forward, out RaycastHit hit, 3f))
-            {
-                if (hit.collider.TryGetComponent<Jewel>(out Jewel j))
-                    j.SwapTo(lastPosition);
-            }
-            SnapToGrid();
-        }
-
-        public void SwapTo(Vector3 location)
-        {
-            transform.position = location;
-            SnapToGrid();
-        }
-
-        private void SnapToGrid()
-        {
-            Vector3Int cell = grid.WorldToCell(transform.position);
-            Vector3 cellCentre = grid.GetCellCenterWorld(cell);
-            transform.position = cellCentre;
-            lastPosition = transform.position;
-        }
-
-        public override void Initialise()
-        {
+            this.grid = grid;
             int shapeNum = Random.Range(0, 6);
             shape = (Shape)shapeNum;
-            base.Start();
-            grid = GetComponentInParent<Grid>();
             ApplyShape(shape);
             SnapToGrid();
         }

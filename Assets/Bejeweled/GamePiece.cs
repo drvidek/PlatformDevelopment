@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GamePiece : MonoBehaviour, ITouchable
+public abstract class GamePiece : MonoBehaviour//, ITouchable
 {
     private Vector2 offset;
 
@@ -10,30 +8,21 @@ public abstract class GamePiece : MonoBehaviour, ITouchable
 
     protected Color colorBase;
 
-    public abstract void Initialise();
+    protected Grid grid;
 
-    protected virtual void Start()
+    public abstract void Initialise(Grid grid);
+
+    protected virtual void Secure()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         colorBase = spriteRenderer.color;
     }
 
-    public virtual void OnTouchBegin(Vector3 screenPosition)
+    public void SnapToGrid()
     {
-        offset = (Vector2)transform.position - (Vector2)Camera.main.ScreenToWorldPoint(screenPosition);
-        spriteRenderer.color += Color.white * 0.1f;
-    }
-    
-    public virtual void OnTouchStay(Vector3 screenPosition)
-    {
-        Vector2 touchWorldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        transform.position = touchWorldPosition + offset;
-        transform.position += Vector3.back;
+        Vector3Int cell = grid.WorldToCell(transform.position);
+        Vector3 cellCentre = grid.GetCellCenterWorld(cell);
+        transform.position = cellCentre;
     }
 
-    public virtual void OnTouchEnd(Vector3 screenPosition)
-    {
-        spriteRenderer.color = colorBase;
-        transform.position += Vector3.forward;
-    }
 }

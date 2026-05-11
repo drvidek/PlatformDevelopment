@@ -8,7 +8,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public class MultiTouchReader : MonoBehaviour
 {
-    public UnityEvent onTouchBegin;
+    public UnityEvent<Vector2> onTouchBegin;
     public UnityEvent<Vector2> onTouchStay;
     public UnityEvent onTouchEnd;
     public UnityEvent<int> onFingerCountChange;
@@ -28,7 +28,7 @@ public class MultiTouchReader : MonoBehaviour
             }
             if (_touchCountCurrent == 0 && value > 0)
             {
-                onTouchBegin.Invoke();
+                onTouchBegin.Invoke(Touch.activeTouches[0].screenPosition);
             }
             if (_touchCountCurrent > 0 && value == 0)
             {
@@ -48,8 +48,6 @@ public class MultiTouchReader : MonoBehaviour
 
     void Update()
     {
-        print(string.Join(",\n", Touch.activeTouches));
-
         touchCountCurrent = Touch.activeTouches.Count;
 
         if (touchCountCurrent == 0)
